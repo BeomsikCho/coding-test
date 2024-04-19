@@ -1,5 +1,6 @@
 """
 Problem: 공원산책
+https://school.programmers.co.kr/learn/courses/30/lessons/172928
 
 문제설명
 지나다니는 길을 'O', 장애물을 'X'로 나타낸 직사각형 격자 모양의 공원에서 로봇 강아지가 산책을 하려합니다. 산책은 로봇 강아지에 미리 입력된 명령에 따라 진행하며, 명령은 다음과 같은 형식으로 주어집니다.
@@ -40,10 +41,56 @@ park	routes	result
 ["SOO","OXX","OOO"]	["E 2","S 2","W 1"]	[0,1]
 ["OSO","OOO","OXO","OOO"]	["E 2","S 3","W 1"]	[0,0]
 """
-from typing import List
+class Matrix(object):
+    def __init__(self, park):
+        self.park = park
+        self.loc = self.__start_loc(park)
+        self.one_step = {
+            "E": (1, 0),
+            "W": (-1, 0),
+            "N": (0, 1),
+            "S": (0, -1)
+        }
 
-def solution(park: List[str], routes: List[str]): 
-    pass
+
+    @staticmethod
+    def __start_loc(park):
+        for i, row in enumerate(park):
+            for j, word in enumerate(row):
+                if word == "S":
+                    return  [i, j]
+
+    def follow_route(self, route: str):
+        direction, num = route.split()
+        num = int(num)
+        
+        pass
+
+    def __go_one_step(self, direction):
+        delta = self.one_step[direction]
+
+        for idx in range(len(self.loc)):
+            self.loc[idx] += delta[idx]
+
+
+
+
+
+
+
+
+def solution(park, routes): 
+    matrix = Matrix(park)
+    
+    for route in routes:
+        matrix.follow_route(route)
+
+    return matrix.loc
+
+
+
+
+
 
 
 if __name__ == "__main__":
@@ -51,7 +98,12 @@ if __name__ == "__main__":
     routes = ["E 2","S 2","W 1"]
     results = [2,1]
 
-    results == solution(park, routes)
+    # park1 = ["SOO","OXX","OOO"]
+    # park2 = ["OSO","OOO","OXO","OOO"]
+    # print(start_loc(park2))
+    # print(results == solution(park, routes))
+
+    solution(park, routes)
 
 
 
